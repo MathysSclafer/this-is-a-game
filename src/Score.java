@@ -18,10 +18,15 @@ public class Score {
     public static final String CYAN = "\u001B[36m";
     public static final String GREY = "\u001B[37m";
 
-    public static void main(String[] args) {
+    public static void score() {
 
         System.out.println(CYAN + "========================" + RESET);
-        System.out.println(CYAN + "Scores des 10 meilleurs: " + RESET);
+        if(!isAscendingOrder){
+            System.out.println(CYAN + "10 best scores (descending): " + RESET);
+        }
+        else{
+            System.out.println(CYAN + "10 best scores (ascending): " + RESET);
+        }
         System.out.println(GREEN + "   Pseudo  Scores");
 
         user_scores.put("Caca", 350);
@@ -35,14 +40,14 @@ public class Score {
         user_scores.put("Caca10", 1050);
         user_scores.put("Caca11", 1050);
 
-        addScoreToPlayer(user_scores, "Caca5", 5);
-
         List<Map.Entry<String, Integer>> sorted_user_scores = new ArrayList<>(user_scores.entrySet());
         // Sorting the user scores using QuickSort
         quickSort(sorted_user_scores, 0, sorted_user_scores.size() - 1);
 
         // Displaying the top 10 users
         showLeaderboard(sorted_user_scores);
+
+        returnLoopScore();
     }
 
     public static void addScoreToPlayer(Map<String, Integer> list, String userName, int scoreToAdd){
@@ -112,6 +117,27 @@ public class Score {
             quickSort(list, firstIndex, pivotIndex - 1);
             quickSort(list, pivotIndex + 1, lastIndex);
         }
+    }
+
+    public static void returnLoopScore(){
+        System.out.println(YELLOW + "Press (A) to sort by ascending results \n" +
+                "Press (D) to sort by descending results \n" +
+                "Press (E) to exit !");
+        do{ //do while loop that stops when e is pressed
+            Scanner input = new Scanner(System.in);
+            if (input.hasNext("e") || input.hasNext("E")) //press e/E to exit the rules
+                return;
+            else if (input.hasNext("a") || input.hasNext("A")){
+                isAscendingOrder = true;
+                score();
+            }
+            else if (input.hasNext("d") || input.hasNext("D")){
+                isAscendingOrder = false;
+                score();
+            }
+            else if (input.hasNext())
+                System.out.println(RED + "Enter the correct letter !");
+        }while (true);
     }
 
 }
