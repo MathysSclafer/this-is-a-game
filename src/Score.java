@@ -60,7 +60,7 @@ public class Score {
     }
 
     public static void showLeaderboard(List<Map.Entry<String, Integer>> list){
-        for (int i = 0; i < Math.min(10, list.size()); i++) {
+        for (short i = 0; i < Math.min(10, list.size()); i++) {
             Map.Entry<String, Integer> user = list.get(i);
             System.out.println(GREEN + (i+1) + ".  " + user.getKey() + "   " + user.getValue() + RESET);
         }
