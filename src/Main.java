@@ -49,8 +49,7 @@ public class Main {
                     return selection;
                 }
                 if (selection == 4) { //if int is 4, print “Score”
-                    System.out.println("Score");
-                    return selection;
+                    Score.score();
                 }
                 if (selection == 5){ ////if int is 5, print “Goodbye”
                     System.out.println("Goodbye");
@@ -80,12 +79,16 @@ public class Main {
                         + "You cannot move onto a destroyed or already occupied square.\n" + "If you get stuck, you lose the game.\n" +
                         "\nPoints :\n" + "5 points for each victory.\n" + "-2 points for each defeat.\n");
 
+        returnLoop();
+    }
+
+    public static void returnLoop(){
         System.out.println(YELLOW + "Press (E) to exit !");
         do{ //do while loop that stops when e is pressed
             Scanner input = new Scanner(System.in);
             if (input.hasNext("e") || input.hasNext("E")) //press e/E to exit the rules
                 return;
-            if (input.hasNext())
+            else if (input.hasNext())
                 System.out.println(RED + "Enter the correct letter !");
         }while (true);
     }
