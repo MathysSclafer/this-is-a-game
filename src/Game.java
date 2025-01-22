@@ -54,7 +54,7 @@ public class Game {
                 } else {
                     System.out.println(RED + "Invalid choice. Pick between 2 and 4." + RESET);
                 }
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | NegativeArraySizeException err) {
                 System.out.println(RED + "Invalid input. Enter a number between 2 and 4." + RESET);
             }
         }
