@@ -1,7 +1,6 @@
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 /**
  * The Game class contains the main logic for a multiplayer game where players
@@ -17,27 +16,40 @@ public class Game {
     public static final String BLUE = "\u001B[34m";
     public static final String PURPLE = "\u001B[35m";
     public static final String CYAN = "\u001B[36m";
-
+    public static Player[] players = new Player[] {};
+    public static int currentPlayerIndex;
+    public static short RemainingPlayers;
+    public static boolean isEnd = false;
     /**
      * Prompts the user to choose the number of players and assigns symbols to each player.
      *
      * @param scanner the Scanner object to read user input
      * @return an array of symbols representing the players
      */
-    public static String[] choose_player(Scanner scanner) {
-        String[] players;
+    public static Player[] choose_player(Scanner scanner) {
+
         while (true) {
             System.out.println(YELLOW + "Choose a number of players (2-4):" + RESET);
             try {
                 int numbers_of_players = Integer.parseInt(scanner.nextLine());
+                players = new Player[numbers_of_players];
+                for (int i = 0; i < numbers_of_players; i++) {
+                    players[i] = new Player();
+                }
                 if (numbers_of_players == 2) {
-                    players = new String[]{"🟩", "🟦"};
+                    players[0].icon = "🟩";
+                    players[1].icon =  "🟦";
                     break;
                 } else if (numbers_of_players == 3) {
-                    players = new String[]{"🟩", "🟦", "🟨"};
+                    players[0].icon = "🟩";
+                    players[1].icon =  "🟦";
+                    players[2].icon =  "🟨";
                     break;
                 } else if (numbers_of_players == 4) {
-                    players = new String[]{"🟩", "🟦", "🟨", "🟥"};
+                    players[0].icon = "🟩";
+                    players[1].icon =  "🟦";
+                    players[2].icon =  "🟨";
+                    players[3].icon =  "🟥";
                     break;
                 } else {
                     System.out.println(RED + "Invalid choice. Pick between 2 and 4." + RESET);
@@ -52,44 +64,42 @@ public class Game {
     /**
      * Prompts each player to choose a name.
      *
-     * @param players an array of symbols representing the players
+     * @ players an array of symbols representing the players
      * @param scanner the Scanner object to read user input
      * @return an array of names corresponding to each player
      */
-    public static String[] ask_name(String[] players, Scanner scanner) {
-        ArrayList<String> namesList = new ArrayList<>();
-        for (int i = 0; i < players.length; i++) {
+    public static Player[] ask_name( Scanner scanner) {
+         for (int i = 0; i < players.length; i++) {
             System.out.println("Choose a name for player " + (i + 1) + ":");
-            String name = scanner.nextLine();
-            namesList.add(name);
+            players[i].name=scanner.nextLine();;
         }
-        return namesList.toArray(new String[0]);
+        return players;
     }
 
     /**
      * Displays the selected players and their assigned symbols.
      *
-     * @param players an array of symbols representing the players
-     * @param name_list an array of names corresponding to the players
+     * @ players an array of symbols representing the players
+     *  name_list an array of names corresponding to the players
      */
-    public static void show_players(String[] players, String[] name_list) {
+    public static void show_players() {
         System.out.println(BLUE + "Players selected:" + RESET);
         for (int i = 0; i < players.length; i++) {
-            System.out.println(CYAN + "Player " + (i + 1) + ": " + name_list[i] + " (" + players[i] + ")" + RESET);
+            System.out.println(CYAN + "Player " + (i + 1) + ": " + players[i].name + " (" + players[i].icon + ")" + RESET);
         }
     }
 
     /**
      * Randomly selects the first player to start the game.
      *
-     * @param players an array of symbols representing the players
-     * @param name_list an array of names corresponding to the players
+     * @ players an array of symbols representing the players
+     *  name_list an array of names corresponding to the players
      * @return the index of the first player
      */
-    public static int first_player(String[] players, String[] name_list) {
+    public static int first_player() {
         Random random = new Random();
         int randomIndex = random.nextInt(players.length);
-        System.out.println(PURPLE + "The first player is: " + name_list[randomIndex] + " (" + players[randomIndex] + ")" + RESET);
+        System.out.println(PURPLE + "The first player is: " + players[randomIndex].name + " (" + players[randomIndex].icon + ")" + RESET);
         return randomIndex;
     }
 
@@ -114,25 +124,46 @@ public class Game {
      * Places the players at their starting positions in the maze.
      *
      * @param maze a 2D array representing the maze
-     * @param players an array of symbols representing the players
+     * @ players an array of symbols representing the players
      * @return the updated maze with player positions
      */
-    public static String[][] fill_maze(String[][] maze, String[] players) {
+    public static String[][] fill_maze(String[][] maze) {
         switch (players.length) {
             case 2:
                 maze[5][4] = "🟩"; // First player
+                players[0].position[0] = 5;
+                players[0].position[1] = 4;
                 maze[5][6] = "🟦"; // Second player
+                players[1].position[0] = 5;
+                players[1].position[1] = 6;
+                RemainingPlayers = 2;
                 break;
             case 3:
                 maze[4][4] = "🟩"; // First player
+                players[0].position[0] = 4;
+                players[0].position[1] = 4;
                 maze[4][6] = "🟦"; // Second player
+                players[1].position[0] = 4;
+                players[1].position[1] = 6;
                 maze[6][5] = "🟨"; // Third player
+                players[2].position[0] = 6;
+                players[2].position[1] = 5;
+                RemainingPlayers = 3;
                 break;
             case 4:
                 maze[6][4] = "🟩"; // First player
+                players[0].position[0] = 6;
+                players[0].position[1] = 4;
                 maze[4][4] = "🟦"; // Second player
+                players[1].position[0] = 4;
+                players[1].position[1] = 4;
                 maze[4][6] = "🟨"; // Third player
+                players[2].position[0] = 4;
+                players[2].position[1] = 6;
                 maze[6][6] = "🟥"; // Fourth player
+                players[3].position[0] = 6;
+                players[3].position[1] = 6;
+                RemainingPlayers = 4;
                 break;
         }
         return maze;
@@ -194,21 +225,16 @@ public class Game {
      * Moves a player to a new position in the maze based on user input.
      *
      * @param maze a 2D array representing the maze
-     * @param player the symbol representing the player
+     *  player the symbol representing the player
      * @param scanner the Scanner object to read user input
      * @return the updated maze with the player's new position
      */
-    public static String[][] move(String[][] maze, String player, Scanner scanner) {
-        int position_X = -1, position_Y = -1;
+    public static String[][] move(String[][] maze, Player[] players, Scanner scanner, short index) {
+        short position_X = -1, position_Y = -1;
         // Locate the player's current position
-        for (int x = 0; x < maze.length; x++) {
-            for (int y = 0; y < maze[x].length; y++) {
-                if (maze[x][y].equals(player)) {
-                    position_X = x;
-                    position_Y = y;
-                }
-            }
-        }
+
+        position_X = players[index].position[0];
+        position_Y = players[index].position[1];
 
         System.out.println(CYAN + "You are currently at (" + position_X + ", " + position_Y + ")." + RESET);
         System.out.println(GREEN + "Where do you want to move? (Z: Up, S: Down, Q: Left, D: Right)" + RESET);
@@ -221,93 +247,78 @@ public class Game {
             direction = scanner.nextLine().toUpperCase();
         }
 
-        int new_position_X = position_X, new_position_Y = position_Y;
+        short new_position_X = position_X, new_position_Y = position_Y;
 
         switch (direction) {
             case "S":
-                new_position_X = position_X + 1; // Down
+                new_position_X = (short) (position_X + 1); // Down
                 break;
             case "Z":
-                new_position_X = position_X - 1; // Up
+                new_position_X = (short) (position_X - 1); // Up
                 break;
             case "Q":
-                new_position_Y = position_Y - 1; // Left
+                new_position_Y = (short) (position_Y - 1); // Left
                 break;
             case "D":
-                new_position_Y = position_Y + 1; // Right
+                new_position_Y = (short) (position_Y + 1); // Right
                 break;
             default:
                 System.out.println(RED + "Invalid direction. Use Z, Q, S, or D." + RESET);
-
         }
 
         // Check if the new position is within bounds
         if (new_position_X < 0 || new_position_X >= maze.length || new_position_Y < 0 || new_position_Y >= maze[0].length) {
             System.out.println(RED + "You can't move outside the maze!" + RESET);
-            return move(maze, player, scanner);
+            return move(maze, players, scanner,index);
         }
 
         // Check if the new position is empty
         if (!maze[new_position_X][new_position_Y].equals("⬜")) {
             System.out.println(RED + "This position is occupied!" + RESET);
-            return move(maze, player, scanner);
+            return move(maze, players, scanner,index);
         }
 
         // Move the player
         maze[position_X][position_Y] = "⬜"; // Clear the old position
-        maze[new_position_X][new_position_Y] = player;     // Set the new position
-
+        maze[new_position_X][new_position_Y] = players[index].icon;     // Set the new position
+        players[index].position[0] = new_position_X;
+        players[index].position[1] = new_position_Y;
         return maze;
     }
 
-    public static boolean isBlocked(String[][] maze, int x, int y) {
+    public static void isBlocked(String[][] maze,Player player, int test ) {
         int height = maze.length;
         int width = maze[0].length;
-        boolean isblocked=true;
         // Vérifier les 4 directions (haut, bas, gauche, droite)
         int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        int i =0;
         for (int[] direction : directions) {
-            int newX = x + direction[0];
-            int newY = y + direction[1];
+            int newX = player.position[0] + direction[0];
+            int newY = player.position[1] + direction[1];
             // Si la case est dans les limites et vide, le joueur n'est pas bloqué
             if (newX >= 0 && newX < height && newY >= 0 && newY < width && maze[newX][newY].equals("⬜")) {
-                System.out.println("pas Blocked at (" + newX + ", " + newY + ")." + RESET);
-                isblocked= false;
+                i++;
             }
-
         }
-        System.out.println("finish");
-
-        return true; // Toutes les cases autour sont bloquées
+            if(i==0){
+                players[test].isalive= false;
+                RemainingPlayers--;
+            }
     }
 
-    public static void victory(String[][] maze, String[] players) {
-        int activePlayers = 0 ;
-        String lastPlayer = "";
-
-        for (String player : players) {
-            boolean playerBlocked = true;
-
-            // Parcourir le labyrinthe pour trouver le joueur
-            for (int x = 0; x < maze.length; x++) {
-                for (int y = 0; y < maze[x].length; y++) {
-                    if (maze[x][y].equals(player)) {
-                        if (!isBlocked(maze, x, y)) {
-                            playerBlocked = false; // Le joueur peut encore se déplacer
-                        }
-                    }
+    public static void isVictory() {
+        if(RemainingPlayers == 0) {
+            System.out.println("Draw");
+            isEnd = true;
+        }
+        else if(RemainingPlayers == 1){
+            for (Player player : players) {
+                if (player.isalive) {
+                    System.out.println(player.name + " is the winner.");
+                    isEnd = true;
+                    break;
                 }
             }
-
-            if (!playerBlocked) {
-                activePlayers++;
-                lastPlayer = player;
-            }
-        }
-
-        if (activePlayers == 0) {
-            System.out.println(GREEN + "Victory! Player " + lastPlayer + " has won!" + RESET);
-            System.exit(0); // Terminer le jeu
         }
     }
 
@@ -318,41 +329,48 @@ public class Game {
      * @param args command-line arguments (not used)
      */
     public static void main(String[] args) {
+         players = new Player[0];
         Scanner scanner = new Scanner(System.in);
-        boolean running = true;
         // Step 1: Choose players
-        String[] players = choose_player(scanner);
-        String[] name_list = ask_name(players, scanner);
-        show_players(players, name_list);
+         players = choose_player(scanner);
+        players = ask_name(scanner);
+         show_players();
 
         // Step 2: Determine the first player
-        int firstPlayerIndex = first_player(players, name_list);
+        int firstPlayerIndex = first_player();
 
         // Step 3: Create the maze
         String[][] maze = generate_maze(10, 11);
-        maze = fill_maze(maze, players);
+        maze = fill_maze(maze);
 
         // Initial display of the maze
         print_maze(maze);
 
         // Turn-based gameplay
         // Infinite loop to keep the game running
-        while (running) {
+        while (!isEnd) {
             // Iterate through all players
             for (int i = 0; i < players.length; i++) {
                 // Determine the current player's index
-                int currentPlayerIndex = (firstPlayerIndex + i) % players.length;
-                // Get the current player's symbol
-                String currentPlayer = players[currentPlayerIndex];
-                System.out.println(PURPLE + "It's " + currentPlayer + "'s turn!" + RESET);
+                currentPlayerIndex = (firstPlayerIndex + i) % players.length;
 
-                maze = move(maze, currentPlayer, scanner);
-                place_bombs(maze, scanner);
-                print_maze(maze);
+                if(players[currentPlayerIndex].isalive && !isEnd) {
 
-                // Add win or exit condition here
-                victory(maze, players);
+                    // Get the current player's symbol
+                    String currentPlayer = players[currentPlayerIndex].icon;
+                    System.out.println(PURPLE + "It's " +currentPlayer + "'s turn!" + RESET);
+
+                    maze = move(maze, players, scanner, (short) currentPlayerIndex);
+
+                    place_bombs(maze, scanner);
+                    print_maze(maze);
+                    for (short test=0; test<(short)players.length; test++ ) {
+                        isBlocked(maze, players[test],test);
+                    }
+                    isVictory();
+                }
             }
+            //check defeat
         }
 
     }
