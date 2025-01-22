@@ -1,6 +1,4 @@
-import java.util.InputMismatchException;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * The Game class contains the main logic for a multiplayer game where players
@@ -20,11 +18,14 @@ public class Game {
     public static int currentPlayerIndex;
     public static short RemainingPlayers;
     public static boolean isEnd = false;
+
+
     /**
-     * Prompts the user to choose the number of players and assigns symbols to each player.
+     * Prompts the user to choose the number of players (2-4).
+     * Assigns unique icons to each player.
      *
      * @param scanner the Scanner object to read user input
-     * @return an array of symbols representing the players
+     * @return an array of Player objects representing the players
      */
     public static Player[] choose_player(Scanner scanner) {
 
@@ -63,24 +64,34 @@ public class Game {
 
     /**
      * Prompts each player to choose a name.
+     * Ensures names are unique and within the allowed length.
      *
-     * @ players an array of symbols representing the players
      * @param scanner the Scanner object to read user input
-     * @return an array of names corresponding to each player
+     * @return an array of Player objects with assigned names
      */
     public static Player[] ask_name( Scanner scanner) {
-         for (int i = 0; i < players.length; i++) {
+        List<String> usedNames = new ArrayList<String>();
+         for (short i = 0; i < players.length; i++) {
             System.out.println("Choose a name for player " + (i + 1) + ":");
-            players[i].name=scanner.nextLine();;
+            do {
+                if(scanner.nextLine().length() < 10 && scanner.nextLine().length() > 2 && !usedNames.contains(scanner.nextLine())){
+                    players[i].name=scanner.nextLine();
+                    usedNames.add(players[i].name);
+                    break;
+                }
+                else if (scanner.nextLine().length() >= 10 || scanner.nextLine().length() < 2){
+                    System.out.println("Your name is either too long or too short!");
+                }
+                else if (usedNames.contains(scanner.nextLine())){
+                    System.out.println("Your name has already been taken!");
+                }
+            } while (true);
         }
         return players;
     }
 
     /**
-     * Displays the selected players and their assigned symbols.
-     *
-     * @ players an array of symbols representing the players
-     *  name_list an array of names corresponding to the players
+     * Displays the list of players and their assigned icons.
      */
     public static void show_players() {
         System.out.println(BLUE + "Players selected:" + RESET);
@@ -90,10 +101,8 @@ public class Game {
     }
 
     /**
-     * Randomly selects the first player to start the game.
+     * Selects the first player randomly to start the game.
      *
-     * @ players an array of symbols representing the players
-     *  name_list an array of names corresponding to the players
      * @return the index of the first player
      */
     public static int first_player() {
@@ -104,11 +113,12 @@ public class Game {
     }
 
     /**
-     * Creates an empty maze with specified dimensions.
+     * Creates a maze with specified dimensions.
+     * The maze is initialized with empty cells.
      *
      * @param height the height of the maze
      * @param width the width of the maze
-     * @return a 2D array representing the empty maze
+     * @return a 2D array representing the maze
      */
     public static String[][] generate_maze(int height, int width) {
         String[][] maze = new String[height][width];
@@ -121,10 +131,9 @@ public class Game {
     }
 
     /**
-     * Places the players at their starting positions in the maze.
+     * Places players in their starting positions within the maze.
      *
      * @param maze a 2D array representing the maze
-     * @ players an array of symbols representing the players
      * @return the updated maze with player positions
      */
     public static String[][] fill_maze(String[][] maze) {
@@ -170,7 +179,7 @@ public class Game {
     }
 
     /**
-     * Prints the maze to the console.
+     * Prints the current state of the maze to the console.
      *
      * @param maze a 2D array representing the maze
      */
@@ -184,11 +193,12 @@ public class Game {
     }
 
     /**
-     * Marks a position in the maze with a "BOUM" symbol.
+     * Allows the player to place a bomb in the maze.
+     * Ensures the position is valid and updates the maze.
      *
      * @param maze a 2D array representing the maze
      * @param scanner the Scanner object to read user input
-     * @return the updated maze with the "BOUM" position marked
+     * @return the updated maze with the bomb position marked
      */
     public static String[][] place_bombs(String[][] maze, Scanner scanner) {
         try {
@@ -222,11 +232,13 @@ public class Game {
     }
 
     /**
-     * Moves a player to a new position in the maze based on user input.
+     * Moves the player to a new position based on input.
+     * Ensures the movement is valid and updates the maze.
      *
      * @param maze a 2D array representing the maze
-     *  player the symbol representing the player
+     * @param players the array of Player objects
      * @param scanner the Scanner object to read user input
+     * @param index the index of the current player
      * @return the updated maze with the player's new position
      */
     public static String[][] move(String[][] maze, Player[] players, Scanner scanner, short index) {
@@ -286,6 +298,14 @@ public class Game {
         return maze;
     }
 
+    /**
+     * Checks if a player is blocked in all four directions.
+     * Marks the player as defeated if they are blocked.
+     *
+     * @param maze a 2D array representing the maze
+     * @param player the Player object to check
+     * @param test the index of the player being checked
+     */
     public static void isBlocked(String[][] maze,Player player, int test ) {
         int height = maze.length;
         int width = maze[0].length;
@@ -306,6 +326,10 @@ public class Game {
             }
     }
 
+    /**
+     * Determines if the game has ended.
+     * Declares a winner or a draw based on the remaining players.
+     */
     public static void isVictory() {
         if(RemainingPlayers == 0) {
             System.out.println("Draw");
