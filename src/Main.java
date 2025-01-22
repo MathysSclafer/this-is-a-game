@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Timer;
 
 public class Main {
 
@@ -17,9 +18,8 @@ public class Main {
 
     /**
      * Displays the menu of the corresponding input
-     * @return
      */
-    public static int menu() {
+    public static void menu() {
 
         int selection;
 
@@ -34,26 +34,27 @@ public class Main {
             System.out.println("4 / Score");
             System.out.println("5 / Quit");
 
+
             if (input.hasNextInt()) { //if the field entered by the user is an int, the selection takes the int into account
                 selection = input.nextInt();
 
                 if (selection == 1) { //if int is 1, print “Play”
                     System.out.println("Play");
-                    return selection;
+                    return;
                 }
                 if (selection == 2) { //if int is 2, call the rules function
                     rules();
                 }
                 if (selection == 3) { //if int is 3, print “Load”
                     System.out.println("Load");
-                    return selection;
+                    return;
                 }
                 if (selection == 4) { //if int is 4, print “Score”
                     Score.score();
                 }
-                if (selection == 5){ ////if int is 5, print “Goodbye”
+                if (selection == 5){ //if int is 5, print “Goodbye”
                     System.out.println("Goodbye");
-                    return selection;
+                    return;
                 }
                 if(selection < 1 || selection > 5){
                     System.out.println(RED + "Enter a valid number !");
