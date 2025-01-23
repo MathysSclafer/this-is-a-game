@@ -85,6 +85,7 @@ public class Score {
                 + " got " + scoreToAdd + " scores (Updated score: "
                 + CYAN +  user_scores.get(userName) + YELLOW + ")" + RESET);
         saveAndLoad.TryToSaveScore(user_scores);
+        saveAndLoad.TryToSave();
     }
 
     /**

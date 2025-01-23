@@ -1,3 +1,4 @@
+import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -15,7 +16,16 @@ public class Menu {
     public static final String GREY = "\u001B[37m";
 
     public static void main(String[] args) {
+        SaveAndLoad saveAndLoad = new SaveAndLoad();
+        try {
+            if (saveAndLoad.CompareDigest(SaveAndLoad.hashFile())){
+                saveAndLoad.TryToLoadScore();
+            }
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
         menu();
+
         secretSound();
     }
 
