@@ -1,0 +1,61 @@
+// Début du programme
+//
+//Définir la méthode "choose_player" :
+//    - Demander au joueur de choisir le nombre de joueurs (entre 2 et 4)
+//    - Gérer les erreurs
+//    - Associer un symbole à chaque joueur
+//    - Retourner la liste des symboles
+//
+//Définir la méthode "ask_name" :
+//    - Pour chaque joueur, demander un nom, gérer les erreurs
+//    - Retourner la liste des noms
+//
+//Définir la méthode "show_players" :
+//    - Afficher les joueurs et leurs symboles
+//
+//Définir la méthode "first_player" :
+//    - Choisir un joueur aléatoire comme premier joueur
+//    - Afficher le premier joueur
+//    - Retourner l'index du premier joueur
+//
+//Définir la méthode "generate_maze" :
+//    - Créer un labyrinthe avec des cases blanches avec des dimensions spécifiées
+//    - Retourner le labyrinthe
+//
+//Définir la méthode "fill_maze" :
+//    - Placer les joueurs dans leurs positions initiales
+//    - Retourner le labyrinthe mis à jour
+//
+//Définir la méthode "print_maze" :
+//    - Afficher le labyrinthe dans la console avec une boucle
+//
+//Définir la méthode "boum" :
+//    - Demander une position (x, y) pour marquer une explosion
+//    - Vérifier si la position est valide et vide
+//    - Si valide, marquer avec une explosion sinon recommencer
+//    - Retourner le labyrinthe mis à jour
+//
+//Définir la méthode "move" :
+//    - Trouver la position actuelle du joueur
+//    - Demander une direction (haut, bas, gauche, droite)
+//    - Vérifier si le mouvement est possible
+//    - Mettre à jour la position du joueur
+//    - Retourner le labyrinthe mis à jour
+//
+//Dans la méthode principale :
+//    - Initialiser un scanner pour les entrées utilisateur
+//    - Choisir le nombre de joueurs et leurs noms
+//    - Afficher les joueurs
+//    - Déterminer le premier joueur
+//    - Créer un labyrinthe
+//    - Placer les joueurs dans le labyrinthe
+//    - Afficher le labyrinthe
+//
+//    Boucle de jeu infinie :
+//        - Pour chaque joueur :
+//            - Annoncer le tour du joueur actuel
+//            - Déplacer le joueur
+//            - Ajouter une explosion
+//            - Afficher le labyrinthe mis à jour
+//
+//Fin du programme

@@ -5,47 +5,31 @@ import java.io.ObjectInputStream;
 import java.util.*;
 
 /**
- * The Score class provides functionality for managing user scores,
- * sorting them, and displaying a leaderboard.
+ * The Score class provides functionality to manage, sort, and display user scores.
  */
-public class Score {
+public class Score extends Globals {
 
-    /**
-     * A map to store usernames and their scores.
-     */
-    public static Map<String, Integer> user_scores = new HashMap<>();
     static SaveAndLoad saveAndLoad = new SaveAndLoad();
 
     /**
-     * Boolean to decide sorting order.
-     * True for ascending, false for descending.
-     */
-    static boolean isAscendingOrder = false;
-
-    // ANSI color codes for console text
-    public static final String RESET = "\u001B[0m";
-    public static final String RED = "\u001B[31m";
-    public static final String GREEN = "\u001B[32m";
-    public static final String YELLOW = "\u001B[33m";
-    public static final String CYAN = "\u001B[36m";
-    public static final String PURPLE = "\u001B[35m";
-
-    /**
-     * Manages the score display and sorting process.
-     * Displays the top 10 scores based on the selected order.
+     * Handles the display and sorting of scores.
+     * Displays the top 10 scores in ascending or descending order based on user choice.
      */
     public static void score() {
         System.out.println(CYAN + "========================" + RESET);
 
-        // Print the title based on sorting order
+        // Display title based on sorting order
         if (!isAscendingOrder) {
             System.out.println(CYAN + "10 best scores (descending): " + RESET);
         } else {
             System.out.println(CYAN + "10 best scores (ascending): " + RESET);
         }
+
         System.out.printf("%s %10s %10s %n", GREEN, "Pseudo", "Scores");
+
         //saveAndLoad.TryToSaveScore(user_scores);
         //user_scores.clear();
+        // Load scores from storage
         user_scores = saveAndLoad.TryToLoadScore();
         if (user_scores == null) {
             user_scores = new HashMap<>();
@@ -61,21 +45,22 @@ public class Score {
 //        user_scores.put("Clément", 110);
 //        saveAndLoad.TryToSaveScore(user_scores);
 
-        // Sort and display scores
+        // Sort scores
         List<Map.Entry<String, Integer>> sorted_user_scores = new ArrayList<>(user_scores.entrySet());
         quickSort(sorted_user_scores, 0, sorted_user_scores.size() - 1);
+
+        // Display leaderboard
         showLeaderboard(sorted_user_scores);
 
-
-        // User input for sorting preference
+        // Handle user input for sorting preferences
         returnLoopScore();
     }
 
     /**
-     * Add a score to a user. If the user exists, updates their score.
+     * Adds or updates a score for a specific user.
      *
      * @param userName   The username of the player.
-     * @param scoreToAdd The score to add or remove to the user.
+     * @param scoreToAdd The score to add or update for the user.
      */
     public static void addScoreToPlayer(String userName, int scoreToAdd) {
         user_scores = saveAndLoad.TryToLoadScore();
@@ -86,15 +71,15 @@ public class Score {
         }
         System.out.println(PURPLE + userName + YELLOW
                 + " got " + scoreToAdd + " scores (Updated score: "
-                + CYAN +  user_scores.get(userName) + YELLOW + ")" + RESET);
+                + CYAN + user_scores.get(userName) + YELLOW + ")" + RESET);
         saveAndLoad.TryToSaveScore(user_scores);
         saveAndLoad.TryToSave();
     }
 
     /**
-     * Displays the top 10 scores from the sorted list.
+     * Displays the top 10 scores from a sorted list.
      *
-     * @param list The sorted list of scores.
+     * @param list The sorted list of user scores.
      */
     public static void showLeaderboard(List<Map.Entry<String, Integer>> list) {
         for (short i = 0; i < Math.min(10, list.size()); i++) {
@@ -105,12 +90,12 @@ public class Score {
     }
 
     /**
-     * Partition the list for QuickSort based on a pivot element.
+     * Partitions the list for QuickSort using a pivot.
      *
      * @param list       The list to partition.
-     * @param firstIndex The starting index of the segment.
-     * @param lastIndex  The ending index of the segment.
-     * @return The index of the pivot after partitioning.
+     * @param firstIndex The start index of the partition.
+     * @param lastIndex  The end index of the partition.
+     * @return The pivot index after partitioning.
      */
     public static int partition(List<Map.Entry<String, Integer>> list, int firstIndex, int lastIndex) {
         Map.Entry<String, Integer> pivot = list.get(lastIndex);
@@ -137,9 +122,9 @@ public class Score {
     }
 
     /**
-     * Sorts a list of scores using the QuickSort algorithm.
+     * Sorts a list of user scores using the QuickSort algorithm.
      *
-     * @param list       The list of scores to sort.
+     * @param list       The list to sort.
      * @param firstIndex The starting index of the segment to sort.
      * @param lastIndex  The ending index of the segment to sort.
      */
@@ -153,7 +138,7 @@ public class Score {
     }
 
     /**
-     * Loops to accept user input for sorting order or exit.
+     * Handles user input for sorting preferences or exiting the menu.
      */
     public static void returnLoopScore() {
         System.out.println(YELLOW + "Press (A) to sort by ascending results \n" +
@@ -162,7 +147,7 @@ public class Score {
 
         do {
             Scanner input = new Scanner(System.in);
-            if (input.hasNext("e") || input.hasNext("E")) { // Exit the loop
+            if (input.hasNext("e") || input.hasNext("E")) { // Exit
                 Menu.menu();
                 return;
             } else if (input.hasNext("a") || input.hasNext("A")) { // Sort ascending

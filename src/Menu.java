@@ -4,16 +4,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-public class Menu {
-
-    public static final String RESET = "\u001B[0m";
-    public static final String RED = "\u001B[31m";
-    public static final String GREEN = "\u001B[32m";
-    public static final String YELLOW = "\u001B[33m";
-    public static final String BLUE = "\u001B[34m";
-    public static final String PURPLE = "\u001B[35m";
-    public static final String CYAN = "\u001B[36m";
-    public static final String GREY = "\u001B[37m";
+public class Menu extends Globals{
 
     public static void main(String[] args) {
         SaveAndLoad saveAndLoad = new SaveAndLoad();
@@ -39,11 +30,10 @@ public class Menu {
     //sinon print 'entrez une nombre valide'
     /**
      * Displays the menu of the corresponding input
-     * @return
      */
-    public static int menu() {
+    public static void menu() {
 
-        int selection;
+        short selection;
 
         Scanner input = new Scanner(System.in);
 
@@ -58,25 +48,23 @@ public class Menu {
             System.out.println("5 / Quit");
 
             if (input.hasNextInt()) { //if the field entered by the user is an int, the selection takes the int into account
-                selection = input.nextInt();
+                selection = (short) input.nextInt();
                 if (selection == 1) {//if int is 1, print “Play”
-                    Game game = new Game();
-                    game.play();
+                    Game.play();
                 }
                 if (selection == 2) { //if int is 2, call the rules function
                     rules();
                 }
                 if (selection == 3) { //if int is 3, print “Load”
                     System.out.println("Load");
-                    return selection;
+                    return;
                 }
                 if (selection == 4) { //if int is 4, print “Score”
-                    Score score = new Score();
-                    score.score();
+                    Score.score();
                 }
                 if (selection == 5){ ////if int is 5, print “Goodbye”
                     System.out.println("Goodbye");
-                    return selection;
+                    return;
                 }
                 if(selection < 1 || selection > 6){
                     System.out.println(RED + "Enter a valid number !" + RESET);
@@ -129,7 +117,7 @@ public class Menu {
     //lance la musique lorsque un player met le pseudo 'clement'
     //sinon envoie message erreur et lance pas musique
     /**
-     * Displays secretSound
+     * Play secretSound
      */
     public static void secretSound() {
         new Thread(new Runnable() {
