@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.*;
 
 /**
@@ -38,6 +42,20 @@ public class Score {
             System.out.println(CYAN + "10 best scores (ascending): " + RESET);
         }
         System.out.printf("%s %10s %10s %n", GREEN, "Pseudo", "Scores");
+        user_scores.put("Caca", 350);
+        user_scores.put("Caca2", 750);
+        user_scores.put("Caca3", 550);
+        user_scores.put("Caca4", 1050);
+        user_scores.put("Caca6", 1050);
+        user_scores.put("Caca7", 1050);
+        user_scores.put("Caca8", 1050);
+        user_scores.put("Caca9", 1050);
+        user_scores.put("Caca10", 1050);
+        user_scores.put("Caca11", 1050);
+        SaveAndLoad saveAndLoad = new SaveAndLoad();
+        saveAndLoad.TryToSaveScore(user_scores);
+        user_scores.clear();
+        user_scores = saveAndLoad.TryToLoadScore();
 
         // Add example scores
         user_scores.put("Jean", 350);
@@ -48,6 +66,7 @@ public class Score {
         List<Map.Entry<String, Integer>> sorted_user_scores = new ArrayList<>(user_scores.entrySet());
         quickSort(sorted_user_scores, 0, sorted_user_scores.size() - 1);
         showLeaderboard(sorted_user_scores);
+
 
         // User input for sorting preference
         returnLoopScore();
