@@ -40,6 +40,8 @@ public class Main {
 
                 if (selection == 1) { //if int is 1, print “Play”
                     System.out.println("Play");
+                    Game game = new Game();
+                    game.play();
                     return;
                 }
                 if (selection == 2) { //if int is 2, call the rules function

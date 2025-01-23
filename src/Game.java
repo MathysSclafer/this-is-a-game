@@ -78,7 +78,7 @@ public class Game {
             System.out.println("Choose a name for player " + (i + 1) + ":");
             do {
                 String tmp = scanner.nextLine();
-                if(tmp.length() < 10 && tmp.length() > 2 && !usedNames.contains(tmp)){
+                if(tmp.length() < 10 && tmp.length() >= 2 && !usedNames.contains(tmp)){
                     players[i].name=tmp;
 
                     if (players[i].name.equals("snake"))
@@ -89,10 +89,10 @@ public class Game {
                     usedNames.add(players[i].name);
                     break;
                 }
-                else if (scanner.nextLine().length() >= 10 || scanner.nextLine().length() < 2){
+                else if (tmp.length() >= 10 || tmp.length() < 2){
                     System.out.println("Your name is either too long or too short!");
                 }
-                else if (usedNames.contains(scanner.nextLine())){
+                else if (usedNames.contains(tmp)){
                     System.out.println("Your name has already been taken!");
                 }
             } while (true);
@@ -340,6 +340,7 @@ public class Game {
                 i++;
             }
         }
+
             if(i==0){
                 players[test].isalive= false;
                 RemainingPlayers--;
@@ -360,6 +361,7 @@ public class Game {
                 if (player.isalive) {
                     System.out.println(player.name + " is the winner.");
                     isEnd = true;
+                    snakemod = false;
                     break;
                 }
             }
@@ -370,9 +372,8 @@ public class Game {
     /**
      * The main method to run the game.
      *
-     * @param args command-line arguments (not used)
      */
-    public static void main(String[] args) {
+    public static void play() {
 
          players = new Player[0];
         Scanner scanner = new Scanner(System.in);
@@ -410,7 +411,10 @@ public class Game {
                     place_bombs(maze, scanner);
                     print_maze(maze);
                     for (short test=0; test<(short)players.length; test++ ) {
+                        if (players[test].isalive)
+                        {
                         isBlocked(maze, players[test],test);
+                        }
                     }
                     isVictory();
                 }
