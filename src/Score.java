@@ -49,6 +49,14 @@ public class Score {
         user_scores = saveAndLoad.TryToLoadScore();
 
         // Add example scores
+//        user_scores.clear();
+//        user_scores.put("Inès", 108);
+//        user_scores.put("Mathys", 1333);
+//        user_scores.put("Adam", 1298);
+//        user_scores.put("Théo", 3);
+//        user_scores.put("Bernard", 5);
+//        user_scores.put("Clément", 110);
+//        saveAndLoad.TryToSaveScore(user_scores);
 
         // Sort and display scores
         List<Map.Entry<String, Integer>> sorted_user_scores = new ArrayList<>(user_scores.entrySet());
