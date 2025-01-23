@@ -77,8 +77,9 @@ public class Game {
          for (short i = 0; i < players.length; i++) {
             System.out.println("Choose a name for player " + (i + 1) + ":");
             do {
-                if(scanner.nextLine().length() < 10 && scanner.nextLine().length() > 2 && !usedNames.contains(scanner.nextLine())){
-                    players[i].name=scanner.nextLine();
+                String tmp = scanner.nextLine();
+                if(tmp.length() < 10 && tmp.length() > 2 && !usedNames.contains(tmp)){
+                    players[i].name=tmp;
 
                     if (players[i].name.equals("snake"))
                     {
