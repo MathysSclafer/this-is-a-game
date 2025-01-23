@@ -337,9 +337,9 @@ public class Game {
      *
      * @param maze a 2D array representing the maze
      * @param player the Player object to check
-     * @param test the index of the player being checked
+     * @param index the index of the player being checked
      */
-    public static void isBlocked(String[][] maze,Player player, int test ) {
+    public static void isBlocked(String[][] maze,Player player, int index ) {
         int height = maze.length;
         int width = maze[0].length;
         // Vérifier les 4 directions (haut, bas, gauche, droite)
@@ -355,7 +355,7 @@ public class Game {
         }
 
             if(i==0){
-                players[test].isalive= false;
+                players[index].isalive= false;
                 RemainingPlayers--;
             }
     }
@@ -423,13 +423,14 @@ public class Game {
 
                     place_bombs(maze, scanner);
                     print_maze(maze);
-                    for (short test=0; test<(short)players.length; test++ ) {
-                        if (players[test].isalive)
+                    for (short index=0; index<(short)players.length; index++ ) {
+                        if (players[index].isalive)
                         {
-                        isBlocked(maze, players[test],test);
+                        isBlocked(maze, players[index],index);
                         }
                     }
                     isVictory();
+
                 }
             }
             //check defeat
