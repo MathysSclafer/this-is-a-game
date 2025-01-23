@@ -2,6 +2,8 @@ import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.*;
+
+
 /**
  * The Game class contains the main logic for a multiplayer game where players
  * choose names, take turns moving on a maze, and perform actions like marking
@@ -20,9 +22,9 @@ public class Game {
     public static int currentPlayerIndex;
     public static short RemainingPlayers;
     public static boolean isEnd = false;
-
-
     public static boolean snakemod = false;
+
+
     /**
      * Prompts the user to choose the number of players (2-4).
      * Assigns unique icons to each player.
@@ -86,6 +88,12 @@ public class Game {
                         snakemod = true;
                         System.out.println("Snake mod is activated");
                     }
+                    if(players[i].name.equals("clement") || players[i].name.equals("CLEMENT"))
+                    {
+                        Menu.secretSound();
+                        System.out.println("Easter Egg !");
+                    }
+
                     usedNames.add(players[i].name);
                     break;
                 }
