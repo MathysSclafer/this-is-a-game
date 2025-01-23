@@ -373,6 +373,7 @@ public class Game {
      * @param args command-line arguments (not used)
      */
     public static void main(String[] args) {
+
          players = new Player[0];
         Scanner scanner = new Scanner(System.in);
         // Step 1: Choose players

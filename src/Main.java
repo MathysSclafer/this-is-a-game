@@ -66,7 +66,7 @@ public class Main {
             }
         }while (true);
     }
-
+Game game = new Game();
     /**
      * Displays game rules
      */
