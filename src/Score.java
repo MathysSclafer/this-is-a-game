@@ -53,9 +53,9 @@ public class Score {
         user_scores.put("Caca10", 1050);
         user_scores.put("Caca11", 1050);
         SaveAndLoad saveAndLoad = new SaveAndLoad();
-        saveAndLoad.TryToSaveScore(user_scores);
-        user_scores.clear();
-        user_scores = saveAndLoad.TryToLoadScore();
+        //saveAndLoad.TryToSaveScore(user_scores);
+       //user_scores.clear();
+        //user_scores = saveAndLoad.TryToLoadScore();
 
         // Add example scores
         user_scores.put("Jean", 350);

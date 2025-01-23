@@ -48,9 +48,9 @@ public class Menu {
 
             if (input.hasNextInt()) { //if the field entered by the user is an int, the selection takes the int into account
                 selection = input.nextInt();
-                if (selection == 1) { //if int is 1, print “Play”
-                    System.out.println("Play");
-                    return selection;
+                if (selection == 1) {//if int is 1, print “Play”
+                    Game game = new Game();
+                    game.play();
                 }
                 if (selection == 2) { //if int is 2, call the rules function
                     rules();
@@ -60,15 +60,12 @@ public class Menu {
                     return selection;
                 }
                 if (selection == 4) { //if int is 4, print “Score”
-                    System.out.println("Score");
-                    return selection;
+                    Score score = new Score();
+                    score.score();
                 }
                 if (selection == 5){ ////if int is 5, print “Goodbye”
                     System.out.println("Goodbye");
                     return selection;
-                }
-                if (selection == 6){ ////if int is 6, call the secretSound function
-                    secretSound();
                 }
                 if(selection < 1 || selection > 6){
                     System.out.println(RED + "Enter a valid number !" + RESET);
@@ -130,7 +127,7 @@ public class Menu {
                 try {
                     Clip clip = AudioSystem.getClip();
                     AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-                            Menu.class.getResourceAsStream("you-are-my-sunshine-made-with-Voicemod.wav"));
+                            Menu.class.getResourceAsStream("Macron_voice.wav"));
                     clip.open(inputStream);
                     clip.start();
 
