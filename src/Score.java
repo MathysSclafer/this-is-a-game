@@ -159,6 +159,7 @@ public class Score {
         do {
             Scanner input = new Scanner(System.in);
             if (input.hasNext("e") || input.hasNext("E")) { // Exit the loop
+                Main.menu();
                 return;
             } else if (input.hasNext("a") || input.hasNext("A")) { // Sort ascending
                 isAscendingOrder = true;
