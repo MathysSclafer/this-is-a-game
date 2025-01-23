@@ -28,6 +28,7 @@ public class Score {
     public static final String GREEN = "\u001B[32m";
     public static final String YELLOW = "\u001B[33m";
     public static final String CYAN = "\u001B[36m";
+    public static final String PURPLE = "\u001B[35m";
 
     /**
      * Manages the score display and sorting process.
@@ -66,11 +67,15 @@ public class Score {
      * @param scoreToAdd The score to add or remove to the user.
      */
     public static void addScoreToPlayer(String userName, int scoreToAdd) {
+        user_scores = saveAndLoad.TryToLoadScore();
         if (!user_scores.containsKey(userName)) {
             user_scores.put(userName, scoreToAdd);
         } else {
             user_scores.replace(userName, user_scores.get(userName) + scoreToAdd);
         }
+        System.out.println(PURPLE + userName + YELLOW
+                + " got " + scoreToAdd + " scores (Updated score: "
+                + CYAN +  user_scores.get(userName) + YELLOW + ")" + RESET);
         saveAndLoad.TryToSaveScore(user_scores);
     }
 
@@ -146,7 +151,7 @@ public class Score {
         do {
             Scanner input = new Scanner(System.in);
             if (input.hasNext("e") || input.hasNext("E")) { // Exit the loop
-                Main.menu();
+                Menu.menu();
                 return;
             } else if (input.hasNext("a") || input.hasNext("A")) { // Sort ascending
                 isAscendingOrder = true;

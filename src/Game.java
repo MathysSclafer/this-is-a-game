@@ -369,16 +369,28 @@ public class Game {
             System.out.println("Draw");
             isEnd = true;
         }
-        else if(RemainingPlayers == 1){
+        else if(RemainingPlayers == 1) {
+            Player winner = null;
+
             for (Player player : players) {
-                if (player.isalive) {
-                    System.out.println(player.name + " is the winner.");
-                    isEnd = true;
-                    snakemod = false;
-                    break;
+                if (!player.isalive) {
+                    Score.addScoreToPlayer(player.name, -2);
+                } else {
+                    winner = player;
                 }
             }
+
+            if (winner != null) {
+                Score.addScoreToPlayer(winner.name, +5);
+                System.out.println(GREEN + winner.name + " is the winner!" + RESET);
+                System.out.println("\n \n");
+
+                isEnd = true;
+                snakemod = false;
+                Menu.menu();
+            }
         }
+
     }
 
 
