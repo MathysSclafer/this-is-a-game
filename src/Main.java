@@ -67,7 +67,10 @@ public class Main {
                     System.out.println("Goodbye");
                     return selection;
                 }
-                if(selection < 1 || selection > 5){
+                if (selection == 6){ ////if int is 6, call the secretSound function
+                    secretSound();
+                }
+                if(selection < 1 || selection > 6){
                     System.out.println(RED + "Enter a valid number !" + RESET);
                 }
             }
@@ -112,6 +115,11 @@ public class Main {
         }while (true);
     }
 
+
+    //Fonction secretSound
+    //création d'un thread qui va permettre de lancer un son
+    //lance la musique dès que la console s'ouvre (touche non défini, donc 0 son)
+    //sinon envoie message erreur et lance pas musique
     /**
      * Displays secretSound
      */
