@@ -3,7 +3,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-public class Main {
+public class Menu {
 
     public static final String RESET = "\u001B[0m";
     public static final String RED = "\u001B[31m";
@@ -87,7 +87,7 @@ public class Main {
     //print 'E pour sortir'
     //boucle do while s'arrete que si l'user entre element valide
     //si touche e / E entré, retourne au menu
-     //si autre touche entré, print 'entrer une lettre corret'
+    //si autre touche entré, print 'entrer une lettre corret'
     /**
      * Displays game rules
      */
@@ -130,7 +130,7 @@ public class Main {
                 try {
                     Clip clip = AudioSystem.getClip();
                     AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-                            Main.class.getResourceAsStream("you-are-my-sunshine-made-with-Voicemod.wav"));
+                            Menu.class.getResourceAsStream("you-are-my-sunshine-made-with-Voicemod.wav"));
                     clip.open(inputStream);
                     clip.start();
 
