@@ -112,7 +112,10 @@ public class SaveAndLoad {
         try {
             fileContentBytes = Files.readAllBytes( Paths.get(fichier) );
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("File DOES NOT EXIST");
+            Map<String, Integer> user_scores = new HashMap<>();
+            TryToSaveScore(user_scores);
+            return null;
         }
         // On crée le MessageDigest avec l’algorithme désiré :
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -140,16 +143,19 @@ public class SaveAndLoad {
 
     public static boolean CompareDigest(String encoded) {
         String loadedDigest = new SaveAndLoad().TryToLoad2();
-        if (!encoded.equals(loadedDigest)) {
-            System.out.println("Digest mismatch! Data may have been tampered with.");
-            Map<String, Integer> user_scores = new HashMap<>();
-            TryToSaveScore(user_scores);
-            TryToSave();
-            return false;
-        } else {
-            System.out.println("Digest matches. File is intact.");
-            return true;
+        if (encoded != null) {
+            if (!encoded.equals(loadedDigest)) {
+                System.out.println("Digest mismatch! Data may have been tampered with.");
+                Map<String, Integer> user_scores = new HashMap<>();
+                TryToSaveScore(user_scores);
+                TryToSave();
+                return false;
+            } else {
+                System.out.println("Digest matches. File is intact.");
+                return true;
+            }
         }
+        return false;
     }
 
 

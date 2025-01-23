@@ -47,6 +47,9 @@ public class Score {
         //saveAndLoad.TryToSaveScore(user_scores);
         //user_scores.clear();
         user_scores = saveAndLoad.TryToLoadScore();
+        if (user_scores == null) {
+            user_scores = new HashMap<>();
+        }
 
         // Add example scores
 //        user_scores.clear();
