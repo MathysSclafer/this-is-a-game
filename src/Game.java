@@ -1,5 +1,7 @@
+import java.util.InputMismatchException;
+import java.util.Random;
+import java.util.Scanner;
 import java.util.*;
-
 /**
  * The Game class contains the main logic for a multiplayer game where players
  * choose names, take turns moving on a maze, and perform actions like marking
@@ -20,6 +22,7 @@ public class Game {
     public static boolean isEnd = false;
 
 
+    public static boolean snakemod = false;
     /**
      * Prompts the user to choose the number of players (2-4).
      * Assigns unique icons to each player.
@@ -76,6 +79,12 @@ public class Game {
             do {
                 if(scanner.nextLine().length() < 10 && scanner.nextLine().length() > 2 && !usedNames.contains(scanner.nextLine())){
                     players[i].name=scanner.nextLine();
+
+                    if (players[i].name.equals("snake"))
+                    {
+                        snakemod = true;
+                        System.out.println("Snake mod is activated");
+                    }
                     usedNames.add(players[i].name);
                     break;
                 }
@@ -177,7 +186,6 @@ public class Game {
         }
         return maze;
     }
-
     /**
      * Prints the current state of the maze to the console.
      *
@@ -192,6 +200,7 @@ public class Game {
         }System.out.println("");
     }
 
+
     /**
      * Allows the player to place a bomb in the maze.
      * Ensures the position is valid and updates the maze.
@@ -201,6 +210,12 @@ public class Game {
      * @return the updated maze with the bomb position marked
      */
     public static String[][] place_bombs(String[][] maze, Scanner scanner) {
+        if (snakemod) {
+            maze[players[currentPlayerIndex].lastposition[0]][players[currentPlayerIndex].lastposition[1]] = "💥";
+            return maze;
+        }
+        else {
+
         try {
             System.out.println("Which BOUM would you like to do?");
             System.out.print("Enter position X (row): ");
@@ -229,6 +244,8 @@ public class Game {
             return place_bombs(maze, scanner);
         }
         return maze;
+        }
+
     }
 
     /**
@@ -293,6 +310,8 @@ public class Game {
         // Move the player
         maze[position_X][position_Y] = "⬜"; // Clear the old position
         maze[new_position_X][new_position_Y] = players[index].icon;     // Set the new position
+        players[index].lastposition[0] = players[index].position[0];
+        players[index].lastposition[1] = players[index].position[1];
         players[index].position[0] = new_position_X;
         players[index].position[1] = new_position_Y;
         return maze;
