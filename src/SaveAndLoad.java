@@ -38,7 +38,7 @@ public class SaveAndLoad {
     public void TryToLoad() {
         File fichier = new File("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\this-is-a-game\\src\\Digest.txt");
         if (System.getProperty("os.name").contains("Mac OS X") ) {
-            fichier = new File("/Users/"+ System.getProperty("user.name") +"/Desktop/this-is-a-game/src/Digest.txt");
+            fichier = new File(System.getProperty("user.dir") + "/src/Digest.txt");
         }
         ObjectInputStream ois = null;
 
@@ -65,7 +65,7 @@ public class SaveAndLoad {
     public static void TryToSave() {
         File fichier = new File("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\this-is-a-game\\src\\Digest.txt");
         if (System.getProperty("os.name").contains("Mac OS X") ) {
-            fichier = new File("/Users/"+ System.getProperty("user.name") +"/Desktop/this-is-a-game/src/Digest.txt");
+            fichier = new File(System.getProperty("user.dir") + "/src/Digest.txt");
         }
         ObjectOutputStream oos = null;
 
@@ -131,7 +131,7 @@ public class SaveAndLoad {
     public String TryToLoad2() {
         File fichier = new File("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\this-is-a-game\\src\\Digest.txt");
         if (System.getProperty("os.name").contains("Mac OS X") ) {
-            fichier = new File("/Users/"+ System.getProperty("user.name") +"/Desktop/this-is-a-game/src/Digest.txt");
+            fichier = new File(System.getProperty("user.dir") + "/src/Digest.txt");
         }
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichier))) {
             return (String) ois.readObject();

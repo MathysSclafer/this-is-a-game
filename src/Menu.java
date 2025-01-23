@@ -7,6 +7,7 @@ import javax.sound.sampled.Clip;
 public class Menu extends Globals{
 
     public static void main(String[] args) {
+
         SaveAndLoad saveAndLoad = new SaveAndLoad();
         try {
             if (saveAndLoad.CompareDigest(SaveAndLoad.hashFile())){
