@@ -20,6 +20,7 @@ public class Game {
     public static int currentPlayerIndex;
     public static short RemainingPlayers;
     public static boolean isEnd = false;
+    public static boolean snakemod = false;
     /**
      * Prompts the user to choose the number of players and assigns symbols to each player.
      *
@@ -72,6 +73,11 @@ public class Game {
          for (int i = 0; i < players.length; i++) {
             System.out.println("Choose a name for player " + (i + 1) + ":");
             players[i].name=scanner.nextLine();;
+            if (players[i].name.equals("snake"))
+            {
+                snakemod = true;
+                System.out.println("Snake mod is activated");
+            }
         }
         return players;
     }
@@ -168,19 +174,23 @@ public class Game {
         }
         return maze;
     }
-
     /**
      * Prints the maze to the console.
      *
      * @param maze a 2D array representing the maze
      */
     public static void print_maze(String[][] maze) {
+        System.out.print("   ");
+        for (int i = 0; i <= maze.length; i++) {
+            System.out.print(" "+ i + "  ");
+        }
         for (int x = 0; x < maze.length; x++) {
             System.out.println(" ");
+            System.out.print(" "+x+" ");
             for (int y = 0; y < maze[x].length; y++) {
                 System.out.print(" " + maze[x][y] + " ");
             }
-        }System.out.println("");
+        }System.out.println();
     }
 
     /**
@@ -191,6 +201,12 @@ public class Game {
      * @return the updated maze with the "BOUM" position marked
      */
     public static String[][] place_bombs(String[][] maze, Scanner scanner) {
+        if (snakemod) {
+            maze[players[currentPlayerIndex].lastposition[0]][players[currentPlayerIndex].lastposition[1]] = "💥";
+            return maze;
+        }
+        else {
+
         try {
             System.out.println("Which BOUM would you like to do?");
             System.out.print("Enter position X (row): ");
@@ -219,6 +235,8 @@ public class Game {
             return place_bombs(maze, scanner);
         }
         return maze;
+        }
+
     }
 
     /**
@@ -281,6 +299,8 @@ public class Game {
         // Move the player
         maze[position_X][position_Y] = "⬜"; // Clear the old position
         maze[new_position_X][new_position_Y] = players[index].icon;     // Set the new position
+        players[index].lastposition[0] = players[index].position[0];
+        players[index].lastposition[1] = players[index].position[1];
         players[index].position[0] = new_position_X;
         players[index].position[1] = new_position_Y;
         return maze;
