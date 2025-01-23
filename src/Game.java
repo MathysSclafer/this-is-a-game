@@ -88,7 +88,7 @@ public class Game {
                         snakemod = true;
                         System.out.println("Snake mod is activated");
                     }
-                    if(players[i].name.equals("clement") || players[i].name.equals("CLEMENT"))
+                    if(players[i].name.equals("clement"))
                     {
                         Menu.secretSound();
                         System.out.println("Easter Egg !");

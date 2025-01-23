@@ -38,7 +38,8 @@ public class Menu {
         Scanner input = new Scanner(System.in);
 
         do { //do while loop that stops when the user enters a valid element
-            System.out.println(YELLOW + "Select an option" + RESET);
+            System.out.println(YELLOW + "\n**** THIS IS A GAME ****" + RESET);
+            System.out.println(BLUE + "Select an option" + RESET);
             System.out.println(GREEN + "*****************" + RESET);
             System.out.println(CYAN + "1 / Play");
             System.out.println("2 / Rules");
@@ -115,7 +116,7 @@ public class Menu {
 
     //Fonction secretSound
     //création d'un thread qui va permettre de lancer un son
-    //lance la musique dès que la console s'ouvre (touche non défini, donc 0 son)
+    //lance la musique lorsque un player met le pseudo 'clement'
     //sinon envoie message erreur et lance pas musique
     /**
      * Displays secretSound
