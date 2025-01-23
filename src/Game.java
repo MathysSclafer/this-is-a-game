@@ -188,17 +188,22 @@ public class Game {
         return maze;
     }
     /**
-     * Prints the current state of the maze to the console.
+     * Prints the maze to the console.
      *
      * @param maze a 2D array representing the maze
      */
     public static void print_maze(String[][] maze) {
+        System.out.print("   ");
+        for (int i = 0; i <= maze.length; i++) {
+            System.out.print(" "+ i + "  ");
+        }
         for (int x = 0; x < maze.length; x++) {
             System.out.println(" ");
+            System.out.print(" "+x+" ");
             for (int y = 0; y < maze[x].length; y++) {
                 System.out.print(" " + maze[x][y] + " ");
             }
-        }System.out.println("");
+        }System.out.println();
     }
 
 
