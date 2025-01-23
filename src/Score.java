@@ -13,7 +13,8 @@ public class Score {
     /**
      * A map to store usernames and their scores.
      */
-    static Map<String, Integer> user_scores = new HashMap<>();
+    public static Map<String, Integer> user_scores = new HashMap<>();
+    static SaveAndLoad saveAndLoad = new SaveAndLoad();
 
     /**
      * Boolean to decide sorting order.
@@ -42,25 +43,11 @@ public class Score {
             System.out.println(CYAN + "10 best scores (ascending): " + RESET);
         }
         System.out.printf("%s %10s %10s %n", GREEN, "Pseudo", "Scores");
-        user_scores.put("Caca", 350);
-        user_scores.put("Caca2", 750);
-        user_scores.put("Caca3", 550);
-        user_scores.put("Caca4", 1050);
-        user_scores.put("Caca6", 1050);
-        user_scores.put("Caca7", 1050);
-        user_scores.put("Caca8", 1050);
-        user_scores.put("Caca9", 1050);
-        user_scores.put("Caca10", 1050);
-        user_scores.put("Caca11", 1050);
-        SaveAndLoad saveAndLoad = new SaveAndLoad();
         //saveAndLoad.TryToSaveScore(user_scores);
-       //user_scores.clear();
-        //user_scores = saveAndLoad.TryToLoadScore();
+        //user_scores.clear();
+        user_scores = saveAndLoad.TryToLoadScore();
 
         // Add example scores
-        user_scores.put("Jean", 350);
-        user_scores.put("Baptiste", 750);
-        user_scores.put("Baptistefr", 550);
 
         // Sort and display scores
         List<Map.Entry<String, Integer>> sorted_user_scores = new ArrayList<>(user_scores.entrySet());
@@ -75,16 +62,16 @@ public class Score {
     /**
      * Add a score to a user. If the user exists, updates their score.
      *
-     * @param list       The map storing usernames and scores.
      * @param userName   The username of the player.
      * @param scoreToAdd The score to add or remove to the user.
      */
-    public static void addScoreToPlayer(Map<String, Integer> list, String userName, int scoreToAdd) {
-        if (!list.containsKey(userName)) {
-            list.put(userName, scoreToAdd);
+    public static void addScoreToPlayer(String userName, int scoreToAdd) {
+        if (!user_scores.containsKey(userName)) {
+            user_scores.put(userName, scoreToAdd);
         } else {
-            list.replace(userName, list.get(userName) + scoreToAdd);
+            user_scores.replace(userName, user_scores.get(userName) + scoreToAdd);
         }
+        saveAndLoad.TryToSaveScore(user_scores);
     }
 
     /**
