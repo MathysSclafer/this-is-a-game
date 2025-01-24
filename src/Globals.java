@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Globals {
 
@@ -14,11 +15,16 @@ public class Globals {
 
     // Main Game variables
 
+    public static String[][] maze = new String[][] {};
     public static Player[] players = new Player[] {};
     public static short currentPlayerIndex;
     public static short RemainingPlayers;
+    public static short firstPlayerIndex;
     public static boolean isEnd = false;
     public static boolean snakemod = false;
+    public static Scanner scanner;
+    public static GameSave gamesave = new GameSave();
+
 
     // Score variables
 

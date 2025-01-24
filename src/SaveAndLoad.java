@@ -6,7 +6,7 @@ import java.util.*;
 import java.io.File;
 import java.nio.file.Files;
 
-public class SaveAndLoad {
+public class SaveAndLoad extends Globals{
 
     public SaveAndLoad() {
     }
@@ -36,7 +36,7 @@ public class SaveAndLoad {
      }
 
     public void TryToLoad() {
-        File fichier = new File("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\this-is-a-game\\src\\Digest.txt");
+        File fichier = new File("Digest.txt");
         if (System.getProperty("os.name").contains("Mac OS X") ) {
             fichier = new File("/Users/"+ System.getProperty("user.name") +"/Desktop/this-is-a-game/src/Digest.txt");
         }
@@ -61,9 +61,57 @@ public class SaveAndLoad {
 
         System.out.println(m);
     }
+    public static void TryToSaveGame(short currentplayerindex ) {
+        File fichier = new File("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\Save.txt");
+        if (System.getProperty("os.name").contains("Mac OS") ) {
+            fichier = new File("/Users/" + System.getProperty("user.name") + "/Desktop/Save.txt");
+        }        ObjectOutputStream oos = null;
+
+        try {
+            oos = new ObjectOutputStream(new FileOutputStream(fichier));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        gamesave.maze = maze;
+        gamesave.players = players;
+        gamesave.currentplayerindex = currentplayerindex;
+        try {
+            oos.writeObject(gamesave);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void TryToLoadGame( ) {
+        File fichier = new File("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\Save.txt");
+        if (System.getProperty("os.name").contains("Mac OS") ) {
+            fichier = new File("/Users/" + System.getProperty("user.name") + "/Desktop/Save.txt");
+        }
+
+        ObjectInputStream ois = null;
+
+        try {
+            ois = new ObjectInputStream(new FileInputStream(fichier));
+        } catch (IOException var7) {
+            System.out.println("No Save Found");
+         }
+
+        GameSave pregameSave = gamesave;
+        if (ois != null) {
+            try {
+                gamesave = (GameSave) ois.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                gamesave = pregameSave;
+            }
+        }
+        players = gamesave.players;
+        firstPlayerIndex = gamesave.currentplayerindex;
+         maze = gamesave.maze;
+
+     }
+
 
     public static void TryToSave() {
-        File fichier = new File("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\this-is-a-game\\src\\Digest.txt");
+        File fichier = new File("Digest.txt");
         if (System.getProperty("os.name").contains("Mac OS X") ) {
             fichier = new File("/Users/"+ System.getProperty("user.name") +"/Desktop/this-is-a-game/src/Digest.txt");
         }
@@ -129,7 +177,7 @@ public class SaveAndLoad {
 
 
     public String TryToLoad2() {
-        File fichier = new File("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\this-is-a-game\\src\\Digest.txt");
+        File fichier = new File("Digest.txt");
         if (System.getProperty("os.name").contains("Mac OS X") ) {
             fichier = new File("/Users/"+ System.getProperty("user.name") +"/Desktop/this-is-a-game/src/Digest.txt");
         }

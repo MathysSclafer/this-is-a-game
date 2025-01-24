@@ -2,6 +2,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class GameMechanic extends Globals{
+
     /**
      * Moves the player to a new position based on input.
      * Ensures the movement is valid and updates the maze.
@@ -20,10 +21,13 @@ public class GameMechanic extends Globals{
         position_Y = players[index].position[1];
 
         System.out.println(CYAN + "You are currently at (" + position_X + ", " + position_Y + ")." + RESET);
-        System.out.println(GREEN + "Where do you want to move? (Z: Up, S: Down, Q: Left, D: Right)" + RESET);
+        System.out.println(GREEN + "Where do you want to move? (Z: Up, S: Down, Q: Left, D: Right) \n (you can save by entering 'save'." + RESET);
 
         String direction = scanner.nextLine().toUpperCase();
-
+        if (direction.equals("SAVE")) {
+            SaveAndLoad.TryToSaveGame(currentPlayerIndex);
+            System.out.println("Game Saved!");
+        }
         while (!direction.equals("Z") && !direction.equals("Q") &&
                 !direction.equals("S") && !direction.equals("D")) {
             System.out.println(RED + "Invalid direction. Use Z, Q, S, or D." + RESET);

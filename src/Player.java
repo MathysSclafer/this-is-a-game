@@ -2,8 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.io.Serializable;
 
-public class Player extends Globals{
+public class Player extends Globals implements Serializable{
     String name = "";
     String icon = "";
     short[] position  = new short[2];

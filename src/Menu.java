@@ -56,9 +56,14 @@ public class Menu extends Globals{
                     rules();
                 }
                 if (selection == 3) { //if int is 3, print “Load”
-                    System.out.println("Load");
-                    return;
-                }
+                    System.out.println("Load" + RESET);
+                    SaveAndLoad.TryToLoadGame();
+                    if (gamesave.players!=null)
+                    {
+                    Game.playloop();
+                    }
+
+                 }
                 if (selection == 4) { //if int is 4, print “Score”
                     Score.score();
                 }

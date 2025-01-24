@@ -9,33 +9,14 @@ import java.util.*;
  * positions.
  */
 public class Game extends Globals {
-
-    /**
-     * The main method to run the game.
-     */
-    public static void play() {
-
-        // Initialize players
-        players = new Player[0];
-        Scanner scanner = new Scanner(System.in);
-
-        // Step 1: Choose players and assign names
-        players = Player.choose_player(scanner);
-        players = Player.ask_name(scanner);
-        Player.show_players();
-
-        // Step 2: Determine the first player
-        int firstPlayerIndex = Player.first_player();
-
-        // Step 3: Create and initialize the maze
-        String[][] maze = GameGeneration.generate_maze(10, 11);
-        maze = GameGeneration.fill_maze(maze);
-
-        // Display the initial maze
+    public static void playloop() {
         GameGeneration.print_maze(maze);
-
-        // Turn-based gameplay
-        while (!isEnd) {
+        firstPlayerIndex = currentPlayerIndex;
+        scanner = new Scanner(System.in);
+        for (short i = 0; i < players.length; i++) {
+            RemainingPlayers++;
+        }
+         while (!isEnd) {
             // Iterate through all players
             for (short i = 0; i < players.length; i++) {
                 // Calculate the current player's index
@@ -69,5 +50,34 @@ public class Game extends Globals {
                 }
             }
         }
+    }
+    public static void play() {
+
+    /**
+     * The main method to run the game.
+     */
+
+
+        // Initialize players
+        players = new Player[0];
+        scanner = new Scanner(System.in);
+
+        // Step 1: Choose players and assign names
+        players = Player.choose_player(scanner);
+        players = Player.ask_name(scanner);
+        Player.show_players();
+
+        // Step 2: Determine the first player
+        currentPlayerIndex = Player.first_player();
+
+        // Step 3: Create and initialize the maze
+        maze = GameGeneration.generate_maze(10, 11);
+        maze = GameGeneration.fill_maze(maze);
+
+        // Display the initial maze
+
+
+        // Turn-based gameplay
+       playloop();
     }
 }
