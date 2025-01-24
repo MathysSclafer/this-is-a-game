@@ -28,18 +28,18 @@ public class GameGeneration extends Globals{
     public static String[][] fill_maze(String[][] maze) {
         switch (players.length) {
             case 2:
-                maze[5][4] = "🟩"; // First player
+                maze[5][4] = "\uD83D\uDFE9"; // First player
                 players[0].position[0] = 5;
                 players[0].position[1] = 4;
-                maze[5][6] = "🟦"; // Second player
+                maze[5][6] = "\uD83D\uDFE6"; // Second player
                 players[1].position[0] = 5;
                 players[1].position[1] = 6;
                 break;
             case 3:
-                maze[4][4] = "🟩"; // First player
+                maze[4][4] = "\uD83D\uDFE9"; // First player
                 players[0].position[0] = 4;
                 players[0].position[1] = 4;
-                maze[4][6] = "🟦"; // Second player
+                maze[4][6] = "\uD83D\uDFE6"; // Second player
                 players[1].position[0] = 4;
                 players[1].position[1] = 6;
                 maze[6][5] = "🟨"; // Third player
@@ -47,10 +47,10 @@ public class GameGeneration extends Globals{
                 players[2].position[1] = 5;
                 break;
             case 4:
-                maze[6][4] = "🟩"; // First player
+                maze[6][4] = "\uD83D\uDFE9"; // First player
                 players[0].position[0] = 6;
                 players[0].position[1] = 4;
-                maze[4][4] = "🟦"; // Second player
+                maze[4][4] = "\uD83D\uDFE6"; // Second player
                 players[1].position[0] = 4;
                 players[1].position[1] = 4;
                 maze[4][6] = "🟨"; // Third player
