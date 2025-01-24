@@ -38,6 +38,8 @@ public class Menu extends Globals{
 
         Scanner input = new Scanner(System.in);
 
+        isEnd = false;
+
         do { //do while loop that stops when the user enters a valid element
             System.out.println(YELLOW + "\n**** THIS IS A GAME ****" + RESET);
             System.out.println(BLUE + "Select an option" + RESET);

@@ -34,7 +34,6 @@ public class GameGeneration extends Globals{
                 maze[5][6] = "🟦"; // Second player
                 players[1].position[0] = 5;
                 players[1].position[1] = 6;
-                RemainingPlayers = 2;
                 break;
             case 3:
                 maze[4][4] = "🟩"; // First player
@@ -46,7 +45,6 @@ public class GameGeneration extends Globals{
                 maze[6][5] = "🟨"; // Third player
                 players[2].position[0] = 6;
                 players[2].position[1] = 5;
-                RemainingPlayers = 3;
                 break;
             case 4:
                 maze[6][4] = "🟩"; // First player
@@ -61,7 +59,6 @@ public class GameGeneration extends Globals{
                 maze[6][6] = "🟥"; // Fourth player
                 players[3].position[0] = 6;
                 players[3].position[1] = 6;
-                RemainingPlayers = 4;
                 break;
         }
         return maze;
