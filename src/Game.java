@@ -13,9 +13,7 @@ public class Game extends Globals {
         GameGeneration.print_maze(maze);
         firstPlayerIndex = currentPlayerIndex;
         scanner = new Scanner(System.in);
-        for (short i = 0; i < players.length; i++) {
-            RemainingPlayers++;
-        }
+        RemainingPlayers = (short) players.length;
          while (!isEnd) {
             // Iterate through all players
             for (short i = 0; i < players.length; i++) {
