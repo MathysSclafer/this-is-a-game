@@ -74,7 +74,7 @@ public class Menu extends Globals{
                     System.out.println("Goodbye");
                     System.exit(0);
                 }
-                if(selection < 1 || selection > 6){
+                if(selection < 1 || selection > 5){
                     System.out.println(RED + "Enter a valid number !" + RESET);
                 }
             }

@@ -218,7 +218,7 @@ public class SaveAndLoad extends Globals{
     public String TryToLoad2() {
         File fichier = new File("Digest.txt");
         if (System.getProperty("os.name").contains("Mac OS X") ) {
-            fichier = new File("/Users/"+ System.getProperty("user.name") +"/Desktop/this-is-a-game/src/Digest.txt");
+            fichier = new File("Digest.txt");
         }
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichier))) {
