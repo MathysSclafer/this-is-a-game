@@ -50,12 +50,12 @@ public class Player extends Globals implements Serializable{
                 if(tmp.length() < 10 && tmp.length() >= 2 && !usedNames.contains(tmp)){
                     players[i].name=tmp;
 
-                    if (players[i].name.equals("snake"))
+                    if (players[i].name.equalsIgnoreCase("SNAKE"))
                     {
                         snakemod = true;
                         System.out.println("Snake mod is activated");
                     }
-                    if(players[i].name.equals("clement"))
+                    if(players[i].name.equalsIgnoreCase("clement"))
                     {
                         Menu.secretSound();
                         System.out.println("Easter Egg !");
