@@ -7,6 +7,7 @@ import javax.sound.sampled.Clip;
 public class Menu extends Globals{
 
     public static void main(String[] args) {
+
         SaveAndLoad saveAndLoad = new SaveAndLoad();
         try {
             if (saveAndLoad.CompareDigest(SaveAndLoad.hashFile())){
@@ -69,7 +70,7 @@ public class Menu extends Globals{
                 }
                 if (selection == 5){ ////if int is 5, print “Goodbye”
                     System.out.println("Goodbye");
-                    return;
+                    System.exit(0);
                 }
                 if(selection < 1 || selection > 6){
                     System.out.println(RED + "Enter a valid number !" + RESET);
@@ -105,6 +106,9 @@ public class Menu extends Globals{
         returnLoop();
     }
 
+    /**
+     * Return option to be displayed
+     */
     public static void returnLoop(){
         System.out.println(YELLOW + "Press (E) to exit !");
         do{ //do while loop that stops when e is pressed
